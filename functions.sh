@@ -9,10 +9,9 @@ port_offset() {
 }
 
 change_block_ports() {
-    INPUT=$1
-    ARRAY_OF_LINES <<< $INPUT
+    FILE=$1
     COUNT=0
-    for i in "${ARRAY_OF_LINES[@]}"
+    for i in "$(cat $FILE)"
     do
         if grep "ports:" $i
         then
