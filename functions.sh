@@ -32,3 +32,22 @@ find_ports_starting_line() {
     echo $PORTS_STARTING_LINE
     IFS=$IFS_OLD
 }
+
+span_lines_for_ports() {
+    echo "oi"
+}
+
+print_in_dotfile() {
+    if [ ! -z $1 ]
+    then
+        echo $2 >> $1
+    fi
+}
+
+this_assert() {
+    if [ "$1" = "$2" ]; then
+      echo Passed
+    else
+      echo Missed
+    fi
+}

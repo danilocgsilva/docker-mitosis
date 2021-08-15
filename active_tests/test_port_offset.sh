@@ -9,11 +9,7 @@ test_port_offset1() {
 
   RESULTS=$(port_offset $STARTING_STRING)
 
-  if [ "$RESULTS" = "$DESTINY_STRING" ]; then
-    echo pass ${FUNCNAME[0]}
-  else
-    echo fail ${FUNCNAME[0]}
-  fi
+  this_assert "$DESTINY_STRING" "$RESULTS"
 }
 
 test_port_offset2() {
@@ -23,12 +19,8 @@ test_port_offset2() {
 
   RESULTS=$(port_offset $STARTING_STRING)
 
-  if [ "$RESULTS" = "$DESTINY_STRING" ]; then
-    echo ${FUNCNAME[0]} ok
-  else
-    echo ${FUNCNAME[0]} fail
-  fi
+  this_assert "$DESTINY_STRING" "$RESULTS"
 }
 
-test_port_offset1
-test_port_offset2
+test_port_offset1 $1
+test_port_offset2 $1
