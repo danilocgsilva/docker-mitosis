@@ -9,15 +9,26 @@ port_offset() {
 }
 
 change_block_ports() {
+    echo test
+}
+
+find_ports_starting_line() {
+    IFS_OLD=$IFS
+    IFS=$'\n'
+
     FILE=$1
     COUNT=0
-    for i in "$(cat $FILE)"
+    PORTS_STARTING_LINE=0
+
+    for i in $(cat $FILE)
     do
-        if grep "ports:" $i
+        if echo $i | grep "ports:" > /dev/null 2>&1
         then
-            HEADER_LINE_PORT=$COUNT
+            PORTS_STARTING_LINE=$COUNT
         fi
         COUNT=$(expr $COUNT + 1)
     done
-    echo $COUNT
+    
+    echo $PORTS_STARTING_LINE
+    IFS=$IFS_OLD
 }
