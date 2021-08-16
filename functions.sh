@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DOTFILE=/tmp/docker-mitosis-unittest-$(date +"%s").txt
+
 port_offset() {
     INPUT=$1
     BASE=$(echo $INPUT | cut -f1 -d: | cut -f2 -d\")
@@ -46,8 +48,10 @@ print_in_dotfile() {
 
 this_assert() {
     if [ "$1" = "$2" ]; then
-      echo Passed
+        echo Passed
+        echo -n "." >> $DOTFILE
     else
-      echo Missed
+        echo Missed
+        echo -n "F" >> $DOTFILE
     fi
 }
