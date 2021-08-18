@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -z $DOTFILE ]; then
-    DOTFILE=/tmp/docker-mitosis-unittest-$(date +"%s").txt
-fi
+# if [ -z $DOTFILE ]; then
+#     DOTFILE=/tmp/docker-mitosis-unittest-$(date +"%s").txt
+# fi
 
 port_offset() {
     INPUT=$1
@@ -49,6 +49,10 @@ print_in_dotfile() {
 }
 
 this_assert() {
+    echo "$1"
+    echo "$2"
+    echo "$3"
+    exit
     if [ "$1" = "$2" ]; then
         echo Passed
         echo -n "." >> $DOTFILE

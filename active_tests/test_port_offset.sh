@@ -9,7 +9,7 @@ test_port_offset1() {
 
   RESULTS=$(port_offset $STARTING_STRING)
 
-  this_assert "$DESTINY_STRING" "$RESULTS"
+  this_assert "$DESTINY_STRING" "$RESULTS" "/tmp/dot1"
 }
 
 test_port_offset2() {
@@ -17,9 +17,9 @@ test_port_offset2() {
 
   DESTINY_STRING='"82:80"'
 
-  RESULTS=$(port_offset $STARTING_STRING)
+  RESULTS=$(port_offset $STARTING_STRING) 
 
-  this_assert "$DESTINY_STRING" "$RESULTS"
+  this_assert "$DESTINY_STRING" "$RESULTS" "/tmp/dot1"
 }
 
 test_port_offset1 $1
