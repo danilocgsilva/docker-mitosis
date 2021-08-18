@@ -1,6 +1,8 @@
 #!/bin/bash
 
-DOTFILE=/tmp/docker-mitosis-unittest-$(date +"%s").txt
+if [ -z $DOTFILE ]; then
+    DOTFILE=/tmp/docker-mitosis-unittest-$(date +"%s").txt
+fi
 
 port_offset() {
     INPUT=$1

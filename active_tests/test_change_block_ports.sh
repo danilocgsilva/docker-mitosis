@@ -5,7 +5,7 @@ source ../functions.sh
 
 test_change_block_ports() {
     echo '* change_block_port'
-    FILE_NAME_TESTING_BASE=tmp_file_testing_$(date +"%s")
+    FILE_NAME_T ESTING_BASE=tmp_file_testing_$(date +"%s")
 
     sed 's/80/81/1' mock_fragment_ports_at_2.txt | sed 's/443/444/1' > /tmp/$FILE_NAME_TESTING_BASE.expected
 

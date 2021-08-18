@@ -1,10 +1,6 @@
 #!/bin/bash
 
-DOTFILE=/tmp/unittest-dotfile-tmp-$(date +"%s").txt
-
-for i in $(find -type f | grep -iE "^\./test.*\.sh")
+for i in $(find . -type f | grep -iE "^\./test.*\.sh")
 do
-    sh $i $DOTFILE
+    $i
 done
-
-cat $DOTFILE
