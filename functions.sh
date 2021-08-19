@@ -38,14 +38,9 @@ find_ports_starting_line() {
 }
 
 span_lines_for_ports() {
+    FILE=$1
+    STARTING_LINE=$(find_ports_starting_line $FILE)
     echo 2
-}
-
-print_in_dotfile() {
-    if [ ! -z $1 ]
-    then
-        echo $2 >> $1
-    fi
 }
 
 this_assert() {
