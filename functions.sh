@@ -38,7 +38,7 @@ find_ports_starting_line() {
 }
 
 span_lines_for_ports() {
-    echo "oi"
+    echo 2
 }
 
 print_in_dotfile() {
@@ -49,15 +49,11 @@ print_in_dotfile() {
 }
 
 this_assert() {
-    echo "$1"
-    echo "$2"
-    echo "$3"
-    exit
     if [ "$1" = "$2" ]; then
         echo Passed
-        echo -n "." >> $DOTFILE
+        echo -n "." >> "$3"
     else
         echo Missed
-        echo -n "F" >> $DOTFILE
+        echo -n "F" >> "$3"
     fi
 }
