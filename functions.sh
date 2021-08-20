@@ -40,7 +40,7 @@ find_ports_starting_line() {
 span_lines_for_ports() {
     FILE=$1
     STARTING_LINE=$(find_ports_starting_line $FILE)
-    echo 2
+    echo $STARTING_LINE
 }
 
 this_assert() {

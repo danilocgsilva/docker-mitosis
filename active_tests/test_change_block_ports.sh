@@ -4,34 +4,15 @@ source ../functions.sh
 
 if [ -z $1 ]
 then
-    DOTFILE=/tmp/$(date +%s).txt
+    DOTFILE=/tmp/docker-mitosis-unittests-$(date +%s).txt
 else
     DOTFILE=$1
 fi
-
-test_change_block_ports() {
-
-    echo '* change_block_port'
-
-    FILE_NAME_T ESTING_BASE=tmp_file_testing_$(date +"%s")
-
-    sed 's/80/81/1' mock_fragment_ports_at_2.txt | sed 's/443/444/1' > /tmp/$FILE_NAME_TESTING_BASE.expected
-
-    change_block_ports
-
-    if ! diff /tmp/$FILE_NAME_TESTING_BASE.original /tmp/$FILE_NAME_TESTING_BASE.target
-    then
-        echo "Passed"
-    else
-        echo "Missed"
-    fi
-}
 
 test_find_ports_starting_line_2() {
     echo '* test_find_ports_starting_line_2'
     RESULTS=$(find_ports_starting_line mock_fragment_ports_at_2.txt)
     EXPECTED_RESULTS=2
-    echo $RESULTS "----"
 
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
@@ -88,7 +69,6 @@ test_span_lines_for_ports_4() {
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
 
-test_change_block_ports $DOTFILE
 test_find_ports_starting_line_2 $DOTFILE
 test_find_ports_starting_line_1 $DOTFILE
 test_find_ports_starting_line_0 $DOTFILE

@@ -2,6 +2,12 @@
 
 source ../functions.sh
 
+if [ -z $1 ]; then
+  DOTFILE=/tmp/docker-mitosis-unittests-$(date +%s).txt
+else
+  DOTFILE=$1
+fi
+
 test_port_offset1() {
   STARTING_STRING='"80:80"'
 
@@ -22,5 +28,5 @@ test_port_offset2() {
   this_assert "$DESTINY_STRING" "$RESULTS" "$1"
 }
 
-test_port_offset1 $1
-test_port_offset2 $1
+test_port_offset1 $DOTFILE
+test_port_offset2 $DOTFILE
