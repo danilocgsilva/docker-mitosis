@@ -40,6 +40,15 @@ find_ports_starting_line() {
 span_lines_for_ports() {
     FILE=$1
     STARTING_LINE=$(find_ports_starting_line $FILE)
+
+    # get spacing amount on port starts
+    # get spacing amount in the next line
+    # if same, ignore, as it points that exists a wrong opening section
+    # if greater, must exists an error and also ignores
+    # if less, good! Just count the amount, and count nexts expecting the same amount. At different amount, finishes the span
+
+    #SPACES_HEADER=$(sed -n $STARTING_LINE\p $FILE | )
+
     echo $STARTING_LINE
 }
 
@@ -51,4 +60,11 @@ this_assert() {
         echo Missed
         echo -n "F" >> "$3"
     fi
+}
+
+function starting_spaces_count() {
+    EXPRESSION="$1"
+    NON_STARTING_SPACES_COUNT=$(echo "$EXPRESSION" | sed "s/^\s*//g" | wc -c)
+    FULL_COUNT=$(echo "$EXPRESSION" | wc -c)
+    expr $FULL_COUNT - $NON_STARTING_SPACES_COUNT
 }
