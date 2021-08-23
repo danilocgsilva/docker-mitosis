@@ -47,7 +47,8 @@ span_lines_for_ports() {
     # if greater, must exists an error and also ignores
     # if less, good! Just count the amount, and count nexts expecting the same amount. At different amount, finishes the span
 
-    #SPACES_HEADER=$(sed -n $STARTING_LINE\p $FILE | )
+    HEADER_STRING=$(sed -n $STARTING_LINE\p $FILE)
+    HEADER_STRING_SPACES=$(starting_spaces_count $HEADER_STRING)
 
     echo $STARTING_LINE
 }
