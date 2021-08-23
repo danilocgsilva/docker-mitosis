@@ -64,7 +64,7 @@ this_assert() {
 
 function starting_spaces_count() {
     EXPRESSION="$1"
-    NON_STARTING_SPACES_COUNT=$(echo "$EXPRESSION" | sed "s/^\s*//g" | wc -c)
+    NON_STARTING_SPACES_COUNT=$(echo "$EXPRESSION" | sed "s/^[[:space:]]*//g" | wc -c)
     FULL_COUNT=$(echo "$EXPRESSION" | wc -c)
     expr $FULL_COUNT - $NON_STARTING_SPACES_COUNT
 }
