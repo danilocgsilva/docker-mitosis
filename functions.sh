@@ -51,12 +51,13 @@ span_lines_for_ports() {
     HEADER_STRING_SPACES=$(starting_spaces_count $HEADER_STRING)
     NEXT_STRING=$(sed -n $(expr $STARTING_LINE + 1)p $FILE)
     NEXT_STRING_SPACES=$(starting_spaces_count $NEXT_STRING)
-    if [ $HEADER_STRING_SPACES -gt $NEXT_STRING_SPACES ] then
+    if [ $HEADER_STRING_SPACES -gt $NEXT_STRING_SPACES ]; then
         echo 0
     elif [ $HEADER_STRING_SPACES -eq $NEXT_STRING_SPACES ]; then
         echo 0
     else
-        echo 12345
+        SPAN_COUNTER=0
+        while []
     fi
 }
 
