@@ -41,24 +41,20 @@ span_lines_for_ports() {
     FILE=$1
     STARTING_LINE=$(find_ports_starting_line $FILE)
 
-    # get spacing amount on port starts
-    # get spacing amount in the next line
-    # if same, ignore, as it points that exists a wrong opening section
-    # if greater, must exists an error and also ignores
-    # if less, good! Just count the amount, and count nexts expecting the same amount. At different amount, finishes the span
+    HEADER_STRING=$(sed -n $(expr 1 + $STARTING_LINE)p $FILE)
+    HEADER_STRING_SPACES=$(starting_spaces_count "$HEADER_STRING")
+    NEXT_STRING=$(sed -n $(expr $STARTING_LINE + 2)p $FILE)
+    NEXT_STRING_SPACES=$(starting_spaces_count "$NEXT_STRING")
+    CURRENT_LINE_BLOCK_SPACES=$NEXT_STRING_SPACES
+    SPAN_COUNT=0
+    #echo $NEXT_STRING_SPACES -gt $HEADER_STRING_SPACES
+    #echo $NEXT_STRING_SPACES -ne $CURRENT_LINE_BLOCK_SPACES
+    
+    while [ $NEXT_STRING_SPACES -gt $HEADER_STRING_SPACES ]; do
+        SPAN_COUNT=$(expr $SPAN_COUNT + 1)
+    done
 
-    HEADER_STRING=$(sed -n $STARTING_LINE\p $FILE)
-    HEADER_STRING_SPACES=$(starting_spaces_count $HEADER_STRING)
-    NEXT_STRING=$(sed -n $(expr $STARTING_LINE + 1)p $FILE)
-    NEXT_STRING_SPACES=$(starting_spaces_count $NEXT_STRING)
-    if [ $HEADER_STRING_SPACES -gt $NEXT_STRING_SPACES ]; then
-        echo 0
-    elif [ $HEADER_STRING_SPACES -eq $NEXT_STRING_SPACES ]; then
-        echo 0
-    else
-        SPAN_COUNTER=0
-        while []
-    fi
+    echo $SPAN_COUNT
 }
 
 this_assert() {
