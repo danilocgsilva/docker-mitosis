@@ -16,6 +16,7 @@ change_block_ports() {
     echo test
 }
 
+# Return a number
 find_ports_starting_line() {
     IFS_OLD=$IFS
     IFS=$'\n'
@@ -37,24 +38,30 @@ find_ports_starting_line() {
     IFS=$IFS_OLD
 }
 
+# This function needs an argument pointing to a file, where the analysis will happen
 span_lines_for_ports() {
     FILE=$1
-    STARTING_LINE=$(find_ports_starting_line $FILE)
 
-    HEADER_STRING=$(sed -n $(expr 1 + $STARTING_LINE)p $FILE)
-    HEADER_STRING_SPACES=$(starting_spaces_count "$HEADER_STRING")
-    NEXT_STRING=$(sed -n $(expr $STARTING_LINE + 2)p $FILE)
-    NEXT_STRING_SPACES=$(starting_spaces_count "$NEXT_STRING")
-    CURRENT_LINE_BLOCK_SPACES=$NEXT_STRING_SPACES
-    SPAN_COUNT=0
-    #echo $NEXT_STRING_SPACES -gt $HEADER_STRING_SPACES
-    #echo $NEXT_STRING_SPACES -ne $CURRENT_LINE_BLOCK_SPACES
+    # I needs first to get the header line, which is thos with :port
+    # from header line, count how many lines have greater starting counting spaces
+
+    next_line_number() {
+        OFFSET_LINE=$1
+        FILE=$2
+        starting_spaces_count "$(sed -n $(expr $OFFSET_LINE + 1)p $FILE)"
+    }
+
+    HEADER_LINE_NUMBER=$(find_ports_starting_line $FILE)
+    HEADER_LINE_SPACING=$(starting_spaces_count $(sed -n $HEADER_LINE_NUMBER\p $FILE))
+    LOOP_NUMBER=$HEADER_LINE_NUMBER
+
+    echo - $(next_line_number $LOOP_NUMBER $FILE) - $HEADER_LINE_SPACING -
+    #while [ $(next_line_number $LOOP_NUMBER $FILE) -gt $HEADER_LINE_SPACING ]
+    #do
+    #    LOOP_NUMBER=$(expr $LOOP_NUMBER + 1)
+    #done
     
-    while [ $NEXT_STRING_SPACES -gt $HEADER_STRING_SPACES ]; do
-        SPAN_COUNT=$(expr $SPAN_COUNT + 1)
-    done
-
-    echo $SPAN_COUNT
+    #echo $HEADER_LINE_NUMBER
 }
 
 this_assert() {
@@ -67,6 +74,8 @@ this_assert() {
     fi
 }
 
+# Receives string
+# Return number
 function starting_spaces_count() {
     EXPRESSION="$1"
     NON_STARTING_SPACES_COUNT=$(echo "$EXPRESSION" | sed "s/^[[:space:]]*//g" | wc -c)
