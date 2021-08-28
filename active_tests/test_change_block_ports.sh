@@ -48,9 +48,6 @@ test_span_lines_for_ports_2() {
     RESULTS=$(span_lines_for_ports mocks/mock_fragment_ports_at_2.txt)
     EXPECTED_RESULTS=2
 
-    echo $RESULTS
-    exit
-
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
 
@@ -59,9 +56,6 @@ test_span_lines_for_ports_3() {
 
     RESULTS=$(span_lines_for_ports mocks/mock_fragment_ports_span_3.txt)
     EXPECTED_RESULTS=3
-
-    echo --- $RESULTS
-    exit
 
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
@@ -79,8 +73,8 @@ echo $DOTFILE
 
 test_find_ports_starting_line_2 $DOTFILE
 test_find_ports_starting_line_1 $DOTFILE
-#test_find_ports_starting_line_0 $DOTFILE
+test_find_ports_starting_line_0 $DOTFILE
 test_span_lines_for_ports_1 $DOTFILE
-#test_span_lines_for_ports_2 $DOTFILE
+test_span_lines_for_ports_2 $DOTFILE
 test_span_lines_for_ports_3 $DOTFILE
-#test_span_lines_for_ports_4 $DOTFILE
+test_span_lines_for_ports_4 $DOTFILE

@@ -38,7 +38,8 @@ find_ports_starting_line() {
     IFS=$IFS_OLD
 }
 
-# This function needs an argument pointing to a file, where the analysis will happen
+# This function needs an argument pointing to a file, where the analysis will
+# happen
 span_lines_for_ports() {
     FILE=$1
 
@@ -48,20 +49,23 @@ span_lines_for_ports() {
     next_line_number() {
         OFFSET_LINE=$1
         FILE=$2
-        starting_spaces_count "$(sed -n $(expr $OFFSET_LINE + 1)p $FILE)"
+        REAL_OFFSET_LINE=$(expr $OFFSET_LINE + 1)
+        starting_spaces_count "$(sed -n $REAL_OFFSET_LINE\p $FILE)"
     }
 
     HEADER_LINE_NUMBER=$(find_ports_starting_line $FILE)
-    HEADER_LINE_SPACING=$(starting_spaces_count $(sed -n $HEADER_LINE_NUMBER\p $FILE))
-    LOOP_NUMBER=$HEADER_LINE_NUMBER
+    HEADER_LINE_SPACING=$(starting_spaces_count "$(sed -n $HEADER_LINE_NUMBER\p $FILE)")
+    LOOP_NUMBER=$(expr $HEADER_LINE_NUMBER + 1)
 
-    echo - $(next_line_number $LOOP_NUMBER $FILE) - $HEADER_LINE_SPACING -
-    #while [ $(next_line_number $LOOP_NUMBER $FILE) -gt $HEADER_LINE_SPACING ]
-    #do
-    #    LOOP_NUMBER=$(expr $LOOP_NUMBER + 1)
-    #done
+    # echo - $(next_line_number $LOOP_NUMBER $FILE) - $HEADER_LINE_SPACING -
+    SPAN_COUNT=0
+    while [ $(next_line_number $LOOP_NUMBER $FILE) -gt $HEADER_LINE_SPACING ]
+    do
+       LOOP_NUMBER=$(expr $LOOP_NUMBER + 1)
+       SPAN_COUNT=$(expr $SPAN_COUNT + 1)
+    done
     
-    #echo $HEADER_LINE_NUMBER
+    echo $SPAN_COUNT
 }
 
 this_assert() {
