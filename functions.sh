@@ -1,21 +1,18 @@
 #!/bin/bash
 
-# if [ -z $DOTFILE ]; then
-#     DOTFILE=/tmp/docker-mitosis-unittest-$(date +"%s").txt
-# fi
-
 port_offset() {
-    INPUT=$1
-    BASE=$(echo $INPUT | cut -f1 -d: | cut -f2 -d\")
+    INPUT="$1"
+    BASE=$(echo "$INPUT" | cut -f1 -d: | cut -f2 -d\")
     PLUSVALUE=$(expr $BASE + 1)
-    FINAL_RESULT=$(echo $INPUT | sed "s/$BASE/$PLUSVALUE/1")
-    echo $FINAL_RESULT
+    echo $INPUT | sed "s/$BASE/$PLUSVALUE/1"
 }
 
 change_block_ports() {
     echo test
 }
 
+# Check where ports starts in line number
+#
 # Return a number
 find_ports_starting_line() {
     IFS_OLD=$IFS
@@ -39,12 +36,13 @@ find_ports_starting_line() {
 }
 
 # This function needs an argument pointing to a file, where the analysis will
-# happen
+#   happen
+# Counts how many lines exists with port data 
+#
+# Receives a file path with content
+# Returns a number
 span_lines_for_ports() {
     FILE=$1
-
-    # I needs first to get the header line, which is thos with :port
-    # from header line, count how many lines have greater starting counting spaces
 
     next_line_number() {
         OFFSET_LINE=$1
@@ -57,7 +55,6 @@ span_lines_for_ports() {
     HEADER_LINE_SPACING=$(starting_spaces_count "$(sed -n $HEADER_LINE_NUMBER\p $FILE)")
     LOOP_NUMBER=$(expr $HEADER_LINE_NUMBER + 1)
 
-    # echo - $(next_line_number $LOOP_NUMBER $FILE) - $HEADER_LINE_SPACING -
     SPAN_COUNT=0
     while [ $(next_line_number $LOOP_NUMBER $FILE) -gt $HEADER_LINE_SPACING ]
     do
