@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# Transform a port value entry to add the value to one, so does not
+#   conflits with the previous port
+#
+# Receives a string to have its ports values rotated
+# return string
 port_offset() {
     INPUT="$1"
     BASE=$(echo "$INPUT" | cut -f1 -d: | cut -f2 -d\")
     PLUSVALUE=$(expr $BASE + 1)
-    echo $INPUT | sed "s/$BASE/$PLUSVALUE/1"
+    echo "$INPUT" | sed "s/$BASE/$PLUSVALUE/1"
 }
 
 change_block_ports() {

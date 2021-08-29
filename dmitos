@@ -1,13 +1,16 @@
 #!/bin/bash
 
-FILE_DOCKER="../docker-teste/docker-compose.yml"
+FILE_DOCKER="../docker-test/docker-compose.yml"
 
 source functions.sh
 
 HEADER_LINE_NUMBER=$(find_ports_starting_line $FILE_DOCKER)
 SPAN_LINES=$(span_lines_for_ports $FILE_DOCKER)
-
 for i in $(seq $SPAN_LINES); do
     LINE_NUMBER_TARGET=$(expr $i + $HEADER_LINE_NUMBER)
     ITERATION_CONTENT=$(sed -n $LINE_NUMBER_TARGET\p)
+    RENEWED_CONTENT=$(port_offset $ITERATION_CONTENT)
+    sed -i "$LINE_NUMBER_TARGET\s/$ITERATION_CONTENT/$RENEWED_CONTENT/1"
+    echo oioioio
 done
+echo oi2
