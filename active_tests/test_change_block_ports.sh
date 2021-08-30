@@ -36,7 +36,7 @@ test_find_ports_starting_line_0() {
 test_find_ports_starting_line_6() {
     echo '* test_find_ports_starting_line_6'
     RESULTS=$(find_ports_starting_line mocks/mock_fragment_ports_at_6.txt)
-    EXPECTED_RESULTS=0
+    EXPECTED_RESULTS=6
 
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
