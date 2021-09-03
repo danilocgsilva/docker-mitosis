@@ -41,6 +41,15 @@ test_find_ports_starting_line_6() {
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
 
+test_find_ports_starting_line_15() {
+    echo '* test_find_ports_starting_line_15'
+    RESULTS=$(find_ports_starting_line mocks/mock_larger_span_2.txt)
+    EXPECTED_RESULTS=15
+
+    this_assert $EXPECTED_RESULTS $RESULTS "$1"
+}
+
+
 test_span_lines_for_ports_1() {
     echo '* test_span_lines_for_ports_1'    
 
@@ -86,10 +95,11 @@ test_span_lines_for_ports_5() {
     this_assert $EXPECTED_RESULTS $RESULTS "$1"
 }
 
-# test_find_ports_starting_line_2 $DOTFILE
-# test_find_ports_starting_line_1 $DOTFILE
-# test_find_ports_starting_line_0 $DOTFILE
-# test_find_ports_starting_line_6 $DOTFILE
+test_find_ports_starting_line_2 $DOTFILE
+test_find_ports_starting_line_1 $DOTFILE
+test_find_ports_starting_line_0 $DOTFILE
+test_find_ports_starting_line_6 $DOTFILE
+test_find_ports_starting_line_15 $DOTFILE
 test_span_lines_for_ports_1 $DOTFILE
 test_span_lines_for_ports_2 $DOTFILE
 test_span_lines_for_ports_3 $DOTFILE

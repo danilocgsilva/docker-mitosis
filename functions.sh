@@ -56,10 +56,10 @@ span_lines_for_ports() {
         starting_spaces_count "$(sed -n $REAL_OFFSET_LINE\p $FILE)"
     }
 
-    HEADER_LINE_NUMBER=$(find_ports_starting_line $FILE)
+    HEADER_LINE_NUMBER=$(expr $(find_ports_starting_line $FILE) + 1)
     HEADER_STRING=$(sed -n $HEADER_LINE_NUMBER\p $FILE)
     HEADER_LINE_SPACING=$(starting_spaces_count "$HEADER_STRING")
-    LOOP_NUMBER=$(expr $HEADER_LINE_NUMBER + 1)
+    LOOP_NUMBER=$HEADER_LINE_NUMBER
 
     SPAN_COUNT=0
     while [ $(next_line_number $LOOP_NUMBER $FILE) -gt $HEADER_LINE_SPACING ]
