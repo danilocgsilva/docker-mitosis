@@ -1,6 +1,6 @@
     nginx:
       container_name: d-webserver
-      
+
       build:
         context: ./nginx
         args:

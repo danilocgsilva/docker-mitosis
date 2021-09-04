@@ -26,10 +26,12 @@ find_ports_starting_line() {
     FILE=$1
     COUNT=0
     PORTS_STARTING_LINE=0
+    FILE_COUNT_LINES=$(cat $FILE | wc -l)
 
-    for i in $(cat $FILE)
+    for i in $(seq $FILE_COUNT_LINES)
     do
-        if echo $i | grep "ports:" > /dev/null 2>&1
+        STRING_LOOP=$(sed -n $i\p $FILE)
+        if echo $STRING_LOOP | grep "ports:" > /dev/null 2>&1
         then
             PORTS_STARTING_LINE=$COUNT
         fi
