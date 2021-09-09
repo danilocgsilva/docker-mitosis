@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../functions.sh
+source source.sh
 
 if [ -z $1 ]
 then
