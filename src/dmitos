@@ -1,6 +1,9 @@
 #!/bin/bash
 
-FILE_DOCKER="../docker-compose.yml"
+if [ ! -f docker-compose.yml ]; then
+    echo "Could not found the docker-compose.yml file."
+    exit 1
+fi
 
 source functions.sh
 
